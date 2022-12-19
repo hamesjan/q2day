@@ -1,0 +1,26 @@
+.profile__outer-wrapper{
+    padding: 10px 32px;
+    height: 60vh;
+    background-color:#6a996e;
+}
+
+.profile__table-wrapper{
+    display: flex;
+    text-align:start;
+}
+
+.profile__table-right-column{
+    display: block;
+    flex: 5;
+    text-align:start;
+}
+
+.profile__table-left-column{
+    height: 300px;
+    flex: 1;
+}
+
+.profile__profile-pic{
+    max-width: 100%;  
+    height: auto;  
+}
