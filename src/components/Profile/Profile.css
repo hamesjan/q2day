@@ -1,26 +1,43 @@
 .profile__outer-wrapper{
     padding: 10px 32px;
     height: 60vh;
-    background-color:#6a996e;
+    position:relative;
+    top: -150px;
+    width: fit-content;
+    left: 250px;
+    background-color:#1E1E1E;
 }
 
 .profile__table-wrapper{
     display: flex;
-    text-align:start;
+    align-items: center;
 }
+
 
 .profile__table-right-column{
     display: block;
-    flex: 5;
-    text-align:start;
+    flex: 2;
+    padding-left: 30px;
+    color:#FFFFFF;
 }
+
+.profile__table-right-column h1{
+    font-size: 40px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.profile__table-right-column h2{
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.profile__table-right-column h3{
+    font-size: 20px;
+    color: grey
+}
+
 
 .profile__table-left-column{
-    height: 300px;
-    flex: 1;
-}
-
-.profile__profile-pic{
-    max-width: 100%;  
-    height: auto;  
+    flex: 0.7;
 }

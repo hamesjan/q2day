@@ -9,6 +9,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 
 function Home() {
   const [user, loading, error] = useAuthState(auth);
+  const [hasAnswered, setHasAnswered] = useState(false);
   const [name, setName] = useState("");
   const navigate = useNavigate();
   const fetchUserName = async () => {
@@ -28,12 +29,16 @@ function Home() {
     fetchUserName();
   }, [user, loading]);
   return (
-    <div className="home__outer-wrapper">
-      <div>{name}</div>
-      <div>{user?.email}</div>
+    <div className="haeome__outer-wrapper">
+      {/* <div>{name}</div>
+      <div>{user?.email}</div> */}
       <div className="home__question-box">
         <div style={{ flexGrow: 1 }} />
-        <QuestionBox uid={user?.uid} />
+        <QuestionBox
+          uid={user?.uid}
+          hasAnswered={hasAnswered}
+          setHasAnswered={setHasAnswered}
+        />
         <div style={{ flexGrow: 1 }} />
       </div>
     </div>

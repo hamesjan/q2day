@@ -1,0 +1,29 @@
+.last_seven-outer_wrapper{
+    display:block;
+
+}
+
+.last_seven-outer_wrapper h1{
+    font-size: 30px;
+    color: #FFFFFF;
+    font-weight: 500;
+
+}
+
+button{
+    height: 30px;
+    width: fit-content;
+    font-size: large;
+    padding: 0px 16px;
+    background-color: #1e1e1e;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    border-radius: 5px;
+}
+
+button:hover{
+    transform: scale(1.1) perspective(1px);
+    border: 2px solid #1982FC;
+    color: #1982FC;
+
+}

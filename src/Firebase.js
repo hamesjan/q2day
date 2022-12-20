@@ -114,7 +114,11 @@ const recordUserAnswer = async (uid, answer) => {
     // this is gonna only be one because there is only one doc with that uid
     itemSnapshot.forEach((doc) => {
       updateDoc(doc.ref, {
-        responses: arrayUnion(answer),
+        responses: arrayUnion({
+          ans: answer,
+          date: Date.now(),
+          q: "question here",
+        }),
       });
     });
   } catch (err) {

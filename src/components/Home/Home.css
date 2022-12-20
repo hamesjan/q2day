@@ -1,8 +1,7 @@
 .home__outer-wrapper{
     display: block;
-    padding: 10px 32px;
-    margin-top: 80px;
-    background-color:#6a996e;
+    padding: 16px;
+    background-color:#1E1E1E1E;
 }
 
 .home__header-text{
