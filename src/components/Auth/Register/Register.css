@@ -1,33 +1,38 @@
-.register {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .register__container {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    background-color: #dcdcdc;
-    padding: 30px;
-  }
-  .register__textBox {
-    padding: 10px;
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  .register__btn {
-    padding: 10px;
-    font-size: 18px;
-    margin-bottom: 10px;
-    border: none;
-    color: white;
-    background-color: black;
-  }
-  .register__google {
-    background-color: #4285f4;
-  }
-  .register div {
-    margin-top: 7px;
-  }
+.login {
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login__text{
+  color:#FFFFFF;
+  font-weight: 300;
+  font-size: 20px;
+  text-align: center;
+}
+
+.login__container {
+  display: flex;
+  flex-direction: column;
+  background-color: #1e1e1e1e;
+  padding: 30px;
+}
+.login__textBox {
+  padding: 10px;
+  font-size: 18px;
+  width: 50vh;
+  border-radius: 25px;
+  margin-bottom: 10px;
+}
+
+.login__google {
+  background-color: #FFFFFF;
+  padding: 10px;
+  width: 50vh;
+  height: min-content;
+  font-size: 20px;
+  border-radius: 25px;
+  color:#1E1E1E;
+  text-align: center;
+}

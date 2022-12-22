@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { recordUserAnswer } from "../../../Firebase";
 import { BiUpArrowAlt } from "react-icons/bi";
 
+import "./QuestionBox.css";
+
 function QuestionBox(props) {
   const [validated, setValidated] = useState(false);
   const [answer, setAnswer] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = () => {
     console.log(answer);
+    console.log(props.progress);
+    props.setProgress(1);
     recordUserAnswer(props.uid, answer);
-    event.preventDefault();
   };
 
   const handleChange = (event) => {
@@ -17,8 +20,7 @@ function QuestionBox(props) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
+    <div
       style={{
         textAlign: "center",
         overflow: "hidden",
@@ -28,39 +30,27 @@ function QuestionBox(props) {
         <div
           style={{
             display: "block",
-            textAlign: "center",
+            alignItems: "center",
             borderRadius: "15px",
           }}
         >
-          <h1
-            style={{
-              fontSize: "30px",
-              overflowWrap: "break-word",
-              maxWidth: "70vh",
-              fontWeight: "300",
-              color: "#FFFFFF",
-            }}
-          >
-            What is your favorite color and why?
-          </h1>
+          <div style={{ display: "flex" }}>
+            <div style={{ flexGrow: "1" }} />
+            <h1 className="question-box_h1">{props.question}</h1>
+            <div style={{ flexGrow: "1" }} />
+          </div>
+
           <textarea
             type="text"
             value={answer}
-            style={{
-              borderRadius: "15px",
-              fontSize: "30px",
-              padding: "16px",
-              minHeight: "250px",
-              maxHeight: "250px",
-              maxWidth: "600px",
-              minWidth: "600px",
-            }}
+            className="question-box__textarea"
             onChange={handleChange}
           />
         </div>
       </div>
       <button
         type="submit"
+        onClick={handleSubmit}
         style={{
           borderRadius: "25px",
           padding: 0,
@@ -75,7 +65,7 @@ function QuestionBox(props) {
           style={{ height: "50px", width: "50px", color: "#FFFFFF" }}
         />
       </button>
-    </form>
+    </div>
   );
 }
 

@@ -1,0 +1,19 @@
+.feed-wrapper{
+    background-color: #FFFFFF;
+    overflow-y: scroll;
+    border-radius: 20px;
+    max-height: 70vh;
+    padding: 32px;
+    max-width: 50vw;
+}
+
+.feed-wrapper::-webkit-scrollbar {
+    width: 12px;
+    margin-right: 2px;
+  }
+  
+.feed-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #1982FC;
+    margin-right: 2px;
+  }

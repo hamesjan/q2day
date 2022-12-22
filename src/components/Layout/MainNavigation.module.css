@@ -24,12 +24,6 @@
   text-decoration: none;
 }
 
-.header a:hover{
-  font-size: 40;
-  color: #1982FC;
-  text-decoration: none;
-}
-
 .logout_btn{
   color:#FFFFFF
 }

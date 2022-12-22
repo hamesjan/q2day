@@ -5,30 +5,35 @@ import Profile from "./components/Profile/Profile";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
 import Reset from "./components/Auth/Reset/Reset";
-import { auth } from "./Firebase";
 
-import React, { useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  Redirect,
-} from "react-router-dom";
+import React, { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
-  const [user, loading, error] = useAuthState(auth);
-  const navigate = useNavigate();
+  const [progress, setProgress] = useState(0);
+  const [name, setName] = useState("");
 
   return (
     <Layout>
       <Routes>
-        <Route path="/profile" element={<Profile username="hi" />} />
+        <Route
+          path="/profile"
+          element={<Profile username={name == "" ? "bug" : name} />}
+        />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/reset" element={<Reset />} />
         <Route exact path="/login" element={<Login />} />
-        <Route exact path="/" element={<Home />} />
+        <Route
+          exact
+          path="/"
+          element={
+            <Home
+              progress={progress}
+              setProgress={setProgress}
+              setName={setName}
+            />
+          }
+        />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </Layout>

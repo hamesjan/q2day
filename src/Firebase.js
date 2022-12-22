@@ -21,6 +21,7 @@ import {
   collection,
   where,
   doc,
+  getDoc,
   arrayUnion,
   addDoc,
   updateDoc,
@@ -105,10 +106,21 @@ const logout = () => {
 
 const recordUserAnswer = async (uid, answer) => {
   try {
+    const citiesRef = collection(db, "q2day");
+
+    await updateDoc(doc(citiesRef, "daily"), {
+      responses: arrayUnion({
+        ans: answer,
+        date: Date.now(),
+        q: "question here",
+      }),
+    });
+
     const updateitemRef = query(
       collection(db, "users"),
       where("uid", "==", uid)
     );
+
     const itemSnapshot = await getDocs(updateitemRef);
 
     // this is gonna only be one because there is only one doc with that uid

@@ -4,11 +4,17 @@
     align-items: center;
     justify-content: center;
   }
+
+  .login__text{
+    color:#FFFFFF;
+    font-weight: 300;
+    font-size: 20px;
+    text-align: center;
+  }
+
   .login__container {
     display: flex;
     flex-direction: column;
-    text-align: center;
-    align-items: center;
     background-color: #1e1e1e1e;
     padding: 30px;
   }
@@ -19,19 +25,14 @@
     border-radius: 25px;
     margin-bottom: 10px;
   }
-  
-  .login__btn {
-    
-  }
-
-  .login__btn:hover {
-    transform: scale(1.05) perspective(1px);
-  }
-
+ 
   .login__google {
-    background-color: #1e1e1e;
-  }
-
-  .login div {
-    margin-top: 7px;
+    background-color: #FFFFFF;
+    padding: 10px;
+    width: 50vh;
+    height: min-content;
+    font-size: 20px;
+    border-radius: 25px;
+    color:#1E1E1E;
+    text-align: center;
   }

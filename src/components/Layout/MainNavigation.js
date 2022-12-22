@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
 import { auth, logout } from "../../Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";

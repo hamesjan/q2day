@@ -2,3 +2,21 @@
     min-height: 50vh;
     text-align: center;
 }
+
+.question-box__textarea{
+    border-radius: 15px;
+    font-size: 30px;
+    padding: 16px;
+    min-height: 250px;
+    max-height: 250px;
+    min-width: 600px;
+    max-width: 600px;
+}
+
+.question-box_h1 {
+    font-size: 30px;
+    overflow-wrap: break-word;
+    max-width: 70vh;
+    font-weight: 300;
+    color: #FFFFFF;
+}
