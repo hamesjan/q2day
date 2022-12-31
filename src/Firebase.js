@@ -52,11 +52,12 @@ const signInWithGoogle = async () => {
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
+      await db.collection("users").doc(user.uid).set({
         uid: user.uid,
         name: user.displayName,
         authProvider: "google",
         email: user.email,
+        lastAnswered: null,
       });
     }
   } catch (err) {
@@ -78,11 +79,12 @@ const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
-    await addDoc(collection(db, "users"), {
+    await db.collection("users").doc(user.uid).set({
       uid: user.uid,
       name,
       authProvider: "local",
       email,
+      lastAnswered: null,
     });
   } catch (err) {
     console.error(err);
@@ -104,35 +106,43 @@ const logout = () => {
   signOut(auth);
 };
 
-const recordUserAnswer = async (uid, answer) => {
+const recordUserAnswer = async (uid, answer, name, question) => {
   try {
-    const citiesRef = collection(db, "q2day");
+    const timeStamp = Date.now();
 
-    await updateDoc(doc(citiesRef, "daily"), {
+    const newAnswer = {
+      answer: answer,
+      name: name,
+      profilePicURL:
+        "https://static.vecteezy.com/system/resources/thumbnails/005/544/770/small/profile-icon-design-free-vector.jpg",
+      timestamp: timeStamp,
+      uid: uid,
+    };
+    await updateDoc(doc(db, "q2day", "daily"), {
+      responses: arrayUnion(newAnswer),
+    });
+
+    await updateDoc(doc(db, "users", uid), {
+      lastAnswered: timeStamp,
       responses: arrayUnion({
-        ans: answer,
-        date: Date.now(),
-        q: "question here",
+        answer: answer,
+        timestamp: timeStamp,
+        question: question,
       }),
     });
 
-    const updateitemRef = query(
-      collection(db, "users"),
-      where("uid", "==", uid)
-    );
-
-    const itemSnapshot = await getDocs(updateitemRef);
+    // const itemSnapshot = await getDocs(updateitemRef);
 
     // this is gonna only be one because there is only one doc with that uid
-    itemSnapshot.forEach((doc) => {
-      updateDoc(doc.ref, {
-        responses: arrayUnion({
-          ans: answer,
-          date: Date.now(),
-          q: "question here",
-        }),
-      });
-    });
+    // itemSnapshot.forEach((doc) => {
+    //   updateDoc(doc.ref, {
+    //     responses: arrayUnion({
+    //       answer: answer,
+    //       timestamp: timeStamp,
+    //       question: question,
+    //     }),
+    //   });
+    // });
   } catch (err) {
     console.error(err);
     alert(err.message);

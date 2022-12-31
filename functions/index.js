@@ -3,7 +3,7 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 
 exports.updateQuestionOfTheDay = functions.pubsub
-  .schedule("28 15 * * *")
+  .schedule("59 22 * * *")
   .timeZone("America/Los_Angeles")
   .onRun((context) => {
     const firestore = admin.firestore();
@@ -11,7 +11,7 @@ exports.updateQuestionOfTheDay = functions.pubsub
     // Get the most recent question
     return firestore
       .collection("questions")
-      .orderBy("timestamp", "desc")
+      .orderBy("timestamp", "asc")
       .limit(1)
       .get()
       .then((snapshot) => {
@@ -30,30 +30,24 @@ exports.updateQuestionOfTheDay = functions.pubsub
       })
       .then(() => {
         // Store all answers in the history collection
-        return firestore
-          .collection("q2dayAnswers")
-          .get()
-          .then((snapshot) => {
-            const answers = [];
-            snapshot.forEach((doc) => {
-              answers.push(doc.data());
-            });
+        const timestamp = Date.now();
+        timestamp.setHours(0);
+        timestamp.setMinutes(0);
+        timestamp.setSeconds(0);
+        timestamp.setMilliseconds(0);
+        const q2dayRef = firestore.collection("q2day").doc("daily");
+        const historyRef = firestore.collection("history");
 
-            return firestore.collection("history").add({ answers: answers });
-          });
+        return q2dayRef.get().then((snapshot) => {
+          const answers = snapshot.get("responses");
+          historyRef.add({ answers: answers, timestamp: timestamp });
+        });
       })
       .then(() => {
-        // const collectionRef = firebase.firestore().collection("q2dayanswers");
-
-        // // Delete all documents in the collection
-        // collectionRef.get().then((querySnapshot) => {
-        //   querySnapshot.forEach((doc) => {
-        //     doc.ref.delete();
-        //   });
-        // });
-
-        console.log("Question of the day and history updated");
-        return null;
+        return firestore
+          .collection("q2day")
+          .doc("daily")
+          .update({ responses: [] });
       })
       .catch((error) => {
         console.error(error);

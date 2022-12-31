@@ -5,6 +5,7 @@
     max-height: 70vh;
     padding: 32px;
     max-width: 50vw;
+    min-width: 50vw;
 }
 
 .feed-wrapper::-webkit-scrollbar {

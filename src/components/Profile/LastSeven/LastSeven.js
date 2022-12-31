@@ -1,23 +1,55 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DayQuestionAnswer from "./DayQuestionAnswer/DayQuestionAnswer";
+import { db } from "../../../Firebase";
 import "./LastSeven.css";
+import { Link } from "react-router-dom";
 
 const LastSeven = (props) => {
-  const data = [
-    { question: "q1", answer: "Hello", date: "Dec 12" },
-    { question: "q1", answer: "Hello", date: "Dec 12" },
-    { question: "q1", answer: "Hello", date: "Dec 12" },
-    { question: "q1", answer: "Hello", date: "Dec 12" },
-    { question: "q1", answer: "Hello", date: "Dec 12" },
-    { question: "q1", answer: "Hello", date: "Dec 12" },
-    { question: "q1", answer: "Hello", date: "Dec 12" },
-  ];
-  const listItems = data.map((d) => (
-    <DayQuestionAnswer question={d.question} answer={d.answer} />
-  ));
+  const [date, setDate] = useState(null);
+  const [selectedQuestion, setSelectedQuestion] = useState("");
+
+  let listItems = props.dates.map((date, index) =>
+    props.answers.map((answer, index) => {
+      if (new Date(answer.timestamp).toDateString() === date.toDateString()) {
+        return (
+          <DayQuestionAnswer
+            date={date}
+            question={answer.question}
+            selectedQuestion={selectedQuestion}
+            setSelectedQuestion={setSelectedQuestion}
+            answer={answer.answer}
+            progress={props.progress}
+            setProgress={props.setProgress}
+            timestamp={answer.timestmap}
+          />
+        );
+      }
+    })
+  );
 
   return (
     <div className="last_seven-outer_wrapper">
+      <div className="profile__table-wrapper">
+        <div className="profile__table-left-column">
+          <img
+            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+            alt="Hello"
+            style={{
+              height: "125px",
+              width: "125px",
+            }}
+          ></img>
+        </div>
+        <div className="profile__table-right-column">
+          <h1>{props.username}, 19</h1>
+          <h2>
+            {props.answers.length} question
+            {props.answers.length == 1 ? "" : "s"} answered
+          </h2>
+          <h3>joined Dec 22, 2022</h3>
+        </div>
+      </div>
+
       <div
         style={{
           display: "flex",
@@ -26,7 +58,9 @@ const LastSeven = (props) => {
       >
         <h1>Last 7 Days</h1>
         <div style={{ flexGrow: "1" }} />
-        <button>See all Answers</button>
+        <Link to="/myresponses">
+          <button>See all Answers</button>
+        </Link>
       </div>
       {listItems}
     </div>

@@ -1,15 +1,13 @@
 import "./Home.css";
-import QuestionBox from "./QuestionBox/QuestionBox";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import "./Home.css";
-import { auth } from "../../Firebase";
 import HomeHook from "./HomeHook";
+import { auth } from "../../Firebase";
 
 const Home = (props) => {
   const [user, loading, error] = useAuthState(auth);
-  const [hasAnswered, setHasAnswered] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,18 +16,12 @@ const Home = (props) => {
   }, [user, loading]);
 
   const { visibleComponent } = HomeHook({
-    uid: user?.uid,
-    hasAnswered: hasAnswered,
-    setHasAnswered: setHasAnswered,
-    progress: props.progress,
-    setProgress: props.setProgress,
-    setName: props.setName,
+    question: props.question,
+    uid: props.uid,
+    username: props.username,
   });
-
   return (
     <div className="home__outer-wrapper">
-      {/* <div>{name}</div>
-      <div>{user?.email}</div> */}
       <div className="home__question-box">
         <div style={{ flexGrow: 1 }} />
         {visibleComponent()}

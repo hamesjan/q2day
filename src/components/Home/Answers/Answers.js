@@ -1,9 +1,28 @@
-import React from "react";
-
 import "./Answers.css";
+import React, { useState, useEffect } from "react";
+import RefreshButton from "./RefreshButton";
+import firebase from "firebase/compat/app";
 import DailyAnswer from "./DailyAnswer/DailyAnswer";
 
 const Answers = (props) => {
+  const [answers, setAnswers] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = firebase
+      .firestore()
+      .collection("q2day")
+      .doc("daily")
+      .onSnapshot((doc) => {
+        setAnswers(doc.data().responses);
+      });
+    return () => unsubscribe();
+  }, [refresh]);
+
+  const handleRefresh = () => {
+    setRefresh(!refresh);
+  };
+
   return (
     <div
       style={{
@@ -29,13 +48,17 @@ const Answers = (props) => {
         </div>
 
         <div className="feed-wrapper">
-          <DailyAnswer />
-          <DailyAnswer />
-          <DailyAnswer />
-          <DailyAnswer />
-          <DailyAnswer />
-          <DailyAnswer />
-          <DailyAnswer />
+          {refresh && <RefreshButton onClick={handleRefresh} />}
+          {answers.map((answer) => (
+            <DailyAnswer
+              answer={answer.answer}
+              question={answer.question}
+              key={answer.uid}
+              name={answer.name}
+              profilePicURL={answer.profilePicURL}
+              timestamp={answer.timestamp}
+            />
+          ))}
         </div>
       </div>
       <div style={{ flexGrow: 1 }} />

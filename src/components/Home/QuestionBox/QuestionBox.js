@@ -5,14 +5,11 @@ import { BiUpArrowAlt } from "react-icons/bi";
 import "./QuestionBox.css";
 
 function QuestionBox(props) {
-  const [validated, setValidated] = useState(false);
   const [answer, setAnswer] = useState("");
 
   const handleSubmit = () => {
-    console.log(answer);
-    console.log(props.progress);
     props.setProgress(1);
-    recordUserAnswer(props.uid, answer);
+    recordUserAnswer(props.uid, answer, props.username, props.question);
   };
 
   const handleChange = (event) => {
@@ -34,7 +31,7 @@ function QuestionBox(props) {
             borderRadius: "15px",
           }}
         >
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", minHeight: "80px" }}>
             <div style={{ flexGrow: "1" }} />
             <h1 className="question-box_h1">{props.question}</h1>
             <div style={{ flexGrow: "1" }} />
