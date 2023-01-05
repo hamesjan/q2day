@@ -3,21 +3,38 @@ import { Link, useNavigate } from "react-router-dom";
 import "./DayQuestionAnswer.css";
 
 const DayQuestionAnswer = (props) => {
-  const navigate = useNavigate();
-
   if (props.answer == "") {
     return null;
   }
 
-  const responseTimestamp = props.timestamp;
+  if (props.selectedQuestion == props.question) {
+    return (
+      <div
+        className="day-question-answer__selected-outer-wrapper"
+        onClick={() => {
+          props.setSelectedQuestion(null);
+        }}
+      >
+        <div className="day-question-answer__selected-question-answer">
+          <h2 style={{ fontSize: "15px", fontWeight: "300", color: "grey" }}>
+            {getFormattedDate(props.timestamp)}
+          </h2>
+          <br />
+          <div style={{ flexGrow: 1 }} />
+          <h2>{props.question}</h2>
+          <br />
+          <h3>{props.answer}</h3>
+          <div style={{ flexGrow: 1 }} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
       <div
         className="day-question-answer__outer-wrapper"
         onClick={() => {
-          navigate(`/myresponses/${responseTimestamp}`);
-
           if (props.selectedQuestion == props.question) {
             props.setSelectedQuestion(null);
           } else {
@@ -36,9 +53,22 @@ const DayQuestionAnswer = (props) => {
           <div style={{ flexGrow: 1 }} />
         </div>
       </div>
-      {props.selectedQuestion == props.question ? <p>Hello</p> : <p>No</p>}
     </div>
   );
 };
 
 export default DayQuestionAnswer;
+
+function getFormattedDate(timestamp) {
+  var date = new Date(timestamp);
+  var year = date.getFullYear();
+  var month = (1 + date.getMonth()).toString().padStart(2, "0");
+  var day = date.getDate().toString().padStart(2, "0");
+  var hours = date.getHours().toString().padStart(2, "0");
+  var minutes = date.getMinutes().toString().padStart(2, "0");
+  var seconds = date.getSeconds().toString().padStart(2, "0");
+
+  return (
+    month + "/" + day + "/" + year + " " + hours + ":" + minutes + ":" + seconds
+  );
+}

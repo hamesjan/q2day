@@ -1,0 +1,30 @@
+.my-responses__outer-wrapper{
+    width: 100%;
+    display: flex;
+    position: absolute;
+    top: 0;
+    max-height: 89vh;
+    margin-top: 50px;
+}
+
+.my-responses-list-wrapper{
+    background-color: #FFFFFF;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 20px;
+    max-height: 70vh;
+    padding: 32px;
+    max-width: 50vw;
+    min-width: 50vw;
+}
+
+.my-responses-list-wrapper::-webkit-scrollbar {
+    width: 12px;
+    margin-right: 2px;
+  }
+  
+.my-responses-list-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #1982FC;
+    margin-right: 2px;
+  }

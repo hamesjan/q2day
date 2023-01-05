@@ -1,0 +1,13 @@
+.add-missing-info__outer-wrapper{
+    display: block;
+    width: 100vw;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.add-missing-info__header{
+    color: #FFFFFF;
+    font-size: 30px;
+    font-weight: 200;
+}

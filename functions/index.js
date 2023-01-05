@@ -40,7 +40,12 @@ exports.updateQuestionOfTheDay = functions.pubsub
 
         return q2dayRef.get().then((snapshot) => {
           const answers = snapshot.get("responses");
-          historyRef.add({ answers: answers, timestamp: timestamp });
+          const question = snapshot.get("question");
+          historyRef.add({
+            answers: answers,
+            timestamp: timestamp,
+            question: question,
+          });
         });
       })
       .then(() => {

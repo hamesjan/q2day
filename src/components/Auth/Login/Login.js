@@ -2,6 +2,7 @@ import "./Login.css";
 import logo from "../../../assets/images/google-icon.png";
 import {
   auth,
+  db,
   logInWithEmailAndPassword,
   signInWithGoogle,
 } from "../../../Firebase";
@@ -16,11 +17,27 @@ function Login() {
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
+
+  function checkIfAllInfo() {
+    const userRef = db.collection("users").doc(user.uid);
+    userRef.get().then((doc) => {
+      const docData = doc.data();
+      console.log(docData.profilePicURL);
+      if (docData.profilePicURL == "") {
+        navigate("/addInfo");
+      } else {
+        navigate("/home");
+      }
+    });
+  }
+
   useEffect(() => {
     if (loading) {
       return;
     }
-    if (user) navigate("/home");
+    if (user) {
+      checkIfAllInfo();
+    }
   }, [user, loading]);
 
   return (

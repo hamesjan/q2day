@@ -9,7 +9,17 @@ function QuestionBox(props) {
 
   const handleSubmit = () => {
     props.setProgress(1);
-    recordUserAnswer(props.uid, answer, props.username, props.question);
+    recordUserAnswer(
+      props.uid,
+      answer,
+      props.username,
+      props.question,
+      props.lastAnswered,
+
+      props.profilePicURL == ""
+        ? "https://via.placeholder.com/200x200"
+        : props.profilePicURL
+    );
   };
 
   const handleChange = (event) => {

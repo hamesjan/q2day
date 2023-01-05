@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import firebase from "firebase/compat/app";
+import { getStorage } from "firebase/storage";
+
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
@@ -26,6 +28,7 @@ import {
   addDoc,
   updateDoc,
 } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCfYilsj3PAhg04-_WGbIUNsPj8XXyTUUQ",
@@ -43,6 +46,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 // Use these for db & auth
 const db = firebaseApp.firestore();
 const auth = firebase.auth();
+const storage = getStorage(firebaseApp);
 
 const googleProvider = new GoogleAuthProvider();
 const signInWithGoogle = async () => {
@@ -58,6 +62,8 @@ const signInWithGoogle = async () => {
         authProvider: "google",
         email: user.email,
         lastAnswered: null,
+        responses: [],
+        profilePicURL: "",
       });
     }
   } catch (err) {
@@ -85,6 +91,8 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       authProvider: "local",
       email,
       lastAnswered: null,
+      responses: [],
+      profilePicURL: "",
     });
   } catch (err) {
     console.error(err);
@@ -106,15 +114,21 @@ const logout = () => {
   signOut(auth);
 };
 
-const recordUserAnswer = async (uid, answer, name, question) => {
+const recordUserAnswer = async (
+  uid,
+  answer,
+  name,
+  question,
+  lastAnswered,
+  profilePicURL
+) => {
   try {
+    console.log(profilePicURL);
     const timeStamp = Date.now();
-
     const newAnswer = {
       answer: answer,
       name: name,
-      profilePicURL:
-        "https://static.vecteezy.com/system/resources/thumbnails/005/544/770/small/profile-icon-design-free-vector.jpg",
+      profilePicURL: profilePicURL,
       timestamp: timeStamp,
       uid: uid,
     };
@@ -152,6 +166,7 @@ const recordUserAnswer = async (uid, answer, name, question) => {
 export {
   auth,
   db,
+  storage,
   signInWithGoogle,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,

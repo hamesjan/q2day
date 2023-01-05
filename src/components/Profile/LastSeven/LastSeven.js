@@ -8,31 +8,41 @@ const LastSeven = (props) => {
   const [date, setDate] = useState(null);
   const [selectedQuestion, setSelectedQuestion] = useState("");
 
-  let listItems = props.dates.map((date, index) =>
-    props.answers.map((answer, index) => {
-      if (new Date(answer.timestamp).toDateString() === date.toDateString()) {
-        return (
-          <DayQuestionAnswer
-            date={date}
-            question={answer.question}
-            selectedQuestion={selectedQuestion}
-            setSelectedQuestion={setSelectedQuestion}
-            answer={answer.answer}
-            progress={props.progress}
-            setProgress={props.setProgress}
-            timestamp={answer.timestmap}
-          />
-        );
-      }
-    })
-  );
+  let listItems;
+  if (props.answers.length == 0) {
+    listItems = (
+      <h1 style={{ color: "grey", fontSize: "15px" }}>No questions answered</h1>
+    );
+  } else {
+    listItems = props.dates.map((date, index) =>
+      props.answers.map((answer, index) => {
+        if (new Date(answer.timestamp).toDateString() === date.toDateString()) {
+          return (
+            <DayQuestionAnswer
+              key={date.toDateString()}
+              date={date}
+              question={answer.question}
+              selectedQuestion={selectedQuestion}
+              setSelectedQuestion={setSelectedQuestion}
+              answer={answer.answer}
+              timestamp={answer.timestamp}
+            />
+          );
+        }
+      })
+    );
+  }
 
   return (
     <div className="last_seven-outer_wrapper">
       <div className="profile__table-wrapper">
         <div className="profile__table-left-column">
           <img
-            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+            src={
+              props.profilePicURL == ""
+                ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                : props.profilePicURL
+            }
             alt="Hello"
             style={{
               height: "125px",
@@ -68,3 +78,9 @@ const LastSeven = (props) => {
 };
 
 export default LastSeven;
+
+function getFormattedDate(timestamp) {
+  // British English uses day-month-year order and 24-hour time without AM/PM
+  return timestamp.toLocaleString("en-GB", { timeZone: "UTC" });
+  // expected output: "20/12/2012, 03:00:00"
+}

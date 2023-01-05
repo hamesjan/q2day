@@ -10,6 +10,8 @@ const Home = (props) => {
 
   const navigate = useNavigate();
 
+  // use useffect here if no data
+
   useEffect(() => {
     if (loading) return;
     if (!user) return navigate("/login");
@@ -19,6 +21,8 @@ const Home = (props) => {
     question: props.question,
     uid: props.uid,
     username: props.username,
+    lastAnswered: props.lastAnswered,
+    profilePicURL: props.profilePicURL,
   });
   return (
     <div className="home__outer-wrapper">

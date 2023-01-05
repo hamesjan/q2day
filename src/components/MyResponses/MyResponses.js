@@ -1,34 +1,47 @@
-import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { auth } from "../../Firebase";
+import DayQuestionAnswer from "../Profile/LastSeven/DayQuestionAnswer/DayQuestionAnswer";
+
+import "./MyResponses.css";
 
 const MyResponses = ({ answers }) => {
-  const handleClick = (timestamp) => {
-    const responseTimestamp = timestamp;
-    console.log(responseTimestamp);
-  };
+  const [user, loading, error] = useAuthState(auth);
+  const [selectedQuestion, setSelectedQuestion] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) return navigate("/login");
+  }, [user, loading]);
 
   return (
-    <div>
-      <div style={{ background: "#1E1E1E", textAlign: "center" }}>
-        <div style={{ maxHeight: "80vh" }}>
-          {answers.map((answer) => (
-            <div key={answer.timestamp} style={{ color: "#ccc" }}>
-              <div>Timestamp: {answer.timestamp}</div>
-              <div>Question: {answer.question}</div>
-              <div>Answer: {answer.answer}</div>
-            </div>
-          ))}
+    <div className="my-responses__outer-wrapper">
+      <div style={{ flexGrow: "1" }} />
+      <div style={{ maxHeight: "80vh" }}>
+        <div className="my-responses-list-wrapper">
+          <h1>Your Answers</h1>
+          {answers.map((answer, index) => {
+            return (
+              <DayQuestionAnswer
+                key={answer.timestamp}
+                date={new Date(answer.timestamp)}
+                question={answer.question}
+                selectedQuestion={selectedQuestion}
+                setSelectedQuestion={setSelectedQuestion}
+                answer={answer.answer}
+                timestamp={answer.timestamp}
+              />
+            );
+          })}
+          {answers.length == 0 ? (
+            <h1 style={{ color: "grey", fontSize: "15px" }}>
+              No questions answered
+            </h1>
+          ) : null}
         </div>
       </div>
-
-      {answers.map((answer) => {
-        const responseTimestamp = answer.timestamp;
-        return (
-          <button onClick={handleClick(responseTimestamp)}>
-            View Response
-          </button>
-        );
-      })}
+      <div style={{ flexGrow: "1" }} />
     </div>
   );
 };
