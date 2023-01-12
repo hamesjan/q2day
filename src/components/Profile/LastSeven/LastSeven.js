@@ -51,12 +51,12 @@ const LastSeven = (props) => {
           ></img>
         </div>
         <div className="profile__table-right-column">
-          <h1>{props.username}, 19</h1>
+          <h1>{props.username}</h1>
           <h2>
             {props.answers.length} question
             {props.answers.length == 1 ? "" : "s"} answered
           </h2>
-          <h3>joined Dec 22, 2022</h3>
+          <h3>joined {getFormattedDate(props.dateJoined)}</h3>
         </div>
       </div>
 
@@ -80,7 +80,10 @@ const LastSeven = (props) => {
 export default LastSeven;
 
 function getFormattedDate(timestamp) {
-  // British English uses day-month-year order and 24-hour time without AM/PM
-  return timestamp.toLocaleString("en-GB", { timeZone: "UTC" });
-  // expected output: "20/12/2012, 03:00:00"
+  var date = new Date(timestamp);
+  var year = date.getFullYear();
+  var month = (1 + date.getMonth()).toString().padStart(2, "0");
+  var day = date.getDate().toString().padStart(2, "0");
+
+  return month + "/" + day + "/" + year;
 }

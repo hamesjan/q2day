@@ -25,6 +25,7 @@ function Register() {
   useEffect(() => {
     if (loading) return;
     if (user) navigate("/addInfo");
+    if (error) return navigate("/error");
   }, [user, loading]);
 
   return (

@@ -9,17 +9,25 @@ function QuestionBox(props) {
 
   const handleSubmit = () => {
     props.setProgress(1);
-    recordUserAnswer(
-      props.uid,
-      answer,
-      props.username,
-      props.question,
-      props.lastAnswered,
 
-      props.profilePicURL == ""
-        ? "https://via.placeholder.com/200x200"
-        : props.profilePicURL
-    );
+    const todayDate = Date.now();
+    const currentDate = new Date(todayDate);
+
+    if (
+      new Date(props.lastAnswered).toDateString() != currentDate.toDateString()
+    ) {
+      recordUserAnswer(
+        props.uid,
+        answer,
+        props.username,
+        props.question,
+        props.profilePicURL == ""
+          ? "https://via.placeholder.com/200x200"
+          : props.profilePicURL
+      );
+    } else {
+      alert("You already answered today!");
+    }
   };
 
   const handleChange = (event) => {

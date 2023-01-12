@@ -1,0 +1,9 @@
+.landing-page__outer-wrapper{
+        align-items: center;
+        justify-content: center;
+}
+
+
+.feed-wrapper{
+    max-height: 450px;
+}

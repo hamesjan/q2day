@@ -62,6 +62,7 @@ const AddMissingInfo = () => {
             .update({ profilePicURL: url })
             .then(() => {
               navigate("/home");
+              window.location.reload();
             });
         });
       }

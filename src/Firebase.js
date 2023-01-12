@@ -51,6 +51,7 @@ const storage = getStorage(firebaseApp);
 const googleProvider = new GoogleAuthProvider();
 const signInWithGoogle = async () => {
   try {
+    const dateJoined = Date.now();
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
@@ -64,6 +65,7 @@ const signInWithGoogle = async () => {
         lastAnswered: null,
         responses: [],
         profilePicURL: "",
+        dateJoined: dateJoined,
       });
     }
   } catch (err) {
@@ -83,6 +85,7 @@ const logInWithEmailAndPassword = async (email, password) => {
 
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
+    const dateJoined = Date.now();
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
     await db.collection("users").doc(user.uid).set({
@@ -93,6 +96,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       lastAnswered: null,
       responses: [],
       profilePicURL: "",
+      dateJoined: dateJoined,
     });
   } catch (err) {
     console.error(err);
@@ -114,14 +118,7 @@ const logout = () => {
   signOut(auth);
 };
 
-const recordUserAnswer = async (
-  uid,
-  answer,
-  name,
-  question,
-  lastAnswered,
-  profilePicURL
-) => {
+const recordUserAnswer = async (uid, answer, name, question, profilePicURL) => {
   try {
     console.log(profilePicURL);
     const timeStamp = Date.now();

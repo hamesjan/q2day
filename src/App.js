@@ -9,9 +9,11 @@ import Reset from "./components/Auth/Reset/Reset";
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import withSplashScreen from "./components/withSplashScreen/withSplashScreen";
+import withFirestoreData from "./components/withSplashScreen/withFirestoreData";
 import MyResponses from "./components/MyResponses/MyResponses";
 import AddMissingInfo from "./components/Auth/AddMissingInfo/AddMissingInfo";
+import ErrorPage from "./components/ErrorPage/ErrorPage";
+import LandingPage from "./components/LandingPage/LandingPage";
 
 function App(props) {
   return (
@@ -26,6 +28,7 @@ function App(props) {
               uid={props.uid}
               profilePicURL={props.profilePicURL}
               username={props.username}
+              dateJoined={props.dateJoined}
             />
           }
         />
@@ -38,10 +41,16 @@ function App(props) {
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/reset" element={<Reset />} />
         <Route exact path="/login" element={<Login />} />
+        <Route exact path="/error" element={<ErrorPage />} />
         <Route exact path="/addInfo" element={<AddMissingInfo />} />
         <Route
           exact
           path="/"
+          element={<LandingPage question={props.question} />}
+        />
+        <Route
+          exact
+          path="home"
           element={
             <Home
               question={props.question}
@@ -59,4 +68,4 @@ function App(props) {
   );
 }
 
-export default withSplashScreen(App);
+export default withFirestoreData(App);

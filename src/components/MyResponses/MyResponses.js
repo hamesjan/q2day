@@ -13,6 +13,7 @@ const MyResponses = ({ answers }) => {
 
   useEffect(() => {
     if (!user) return navigate("/login");
+    if (error) return navigate("/error");
   }, [user, loading]);
 
   return (

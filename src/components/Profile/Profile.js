@@ -17,6 +17,7 @@ const Profile = (props) => {
       window.location.reload();
     }
     if (!user) return navigate("/login");
+    if (error) return navigate("/error");
   }, [user, loading]);
 
   if (!props.uid) {
@@ -30,6 +31,7 @@ const Profile = (props) => {
         dates={props.dates}
         answers={props.answers}
         profilePicURL={props.profilePicURL}
+        dateJoined={props.dateJoined}
       />
     </div>
   );

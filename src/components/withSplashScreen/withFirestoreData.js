@@ -20,6 +20,7 @@ const withFirestoreData = (WrappedComponent) => {
     const [uid, setUid] = useState("");
     const [lastAnswered, setLastAnswered] = useState(null);
     const [profilePicURL, setProfilePicURL] = useState("");
+    const [dateJoined, setDateJoined] = useState("");
     const [loading, setLoading] = useState(true);
 
     async function getfirestoreData() {
@@ -48,6 +49,7 @@ const withFirestoreData = (WrappedComponent) => {
             setProfilePicURL(docData.profilePicURL);
             setLastAnswered(docData.lastAnswered);
             setUsername(docData.name);
+            setDateJoined(docData.dateJoined);
           });
         }
       }
@@ -63,7 +65,7 @@ const withFirestoreData = (WrappedComponent) => {
         console.log(err);
         setLoading(false);
       }
-    }, [uid]);
+    }, []);
 
     if (loading) {
       return LoadingMessage();
@@ -79,6 +81,7 @@ const withFirestoreData = (WrappedComponent) => {
         uid={uid}
         profilePicURL={profilePicURL}
         lastAnswered={lastAnswered}
+        dateJoined={dateJoined}
         setLastAnswered={setLastAnswered}
       />
     );

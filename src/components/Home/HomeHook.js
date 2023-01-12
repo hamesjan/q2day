@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
+import withSplashScreen from "../withSplashScreen/withSplashSreen";
 import Answers from "./Answers/Answers";
 import QuestionBox from "./QuestionBox/QuestionBox";
-
-import "../withSplashScreen/splash-screen.css";
 
 const HomeHook = (props) => {
   const [progress, setProgress] = useState(0);
@@ -44,12 +43,3 @@ const HomeHook = (props) => {
 };
 
 export default HomeHook;
-
-function LoadingMessage() {
-  return (
-    <div className="splash-screen">
-      Wait a moment while we load your app.
-      <div className="loading-dot">.</div>
-    </div>
-  );
-}

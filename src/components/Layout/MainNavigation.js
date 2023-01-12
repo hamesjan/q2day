@@ -3,26 +3,36 @@ import classes from "./MainNavigation.module.css";
 import { auth, logout } from "../../Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BiUser } from "react-icons/bi";
+import { useEffect, useState } from "react";
 
 const MainNavigation = (props) => {
   const [user, loading, error] = useAuthState(auth);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const isMobile = window.innerWidth <= 800;
+    setIsMobile(isMobile);
+  }, []);
+
   return (
     <div>
       <header className={classes.header}>
-        <div className={classes.nav_div}>
-          <Link to="/">
-            <h1>q2day</h1>
-          </Link>
-          <div style={{ height: "30px" }} />
-          {user ? (
+        {user ? (
+          <div
+            className={isMobile ? classes.nav_div_mobile : classes.nav_div_web}
+          >
+            <Link to="/home">
+              <h1>q2day</h1>
+            </Link>
+            <div style={{ height: "30px" }} />
             <Link to="/profile">
               <BiUser style={{ height: "50px", width: "50px" }} />
             </Link>
-          ) : (
-            <div />
-          )}
-        </div>
+          </div>
+        ) : (
+          <div />
+        )}
       </header>
       {user ? (
         <h3

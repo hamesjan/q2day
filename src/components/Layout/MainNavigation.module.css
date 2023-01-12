@@ -8,9 +8,15 @@
   z-index: 6;
 }
 
-.nav_div{
+.nav_div_web{
   display: flex;
   flex-direction:column;
+}
+
+.nav_div_mobile{
+  display: flex;
+  width: 50vw;
+  justify-content: space-between;
 }
 
 .header h1{

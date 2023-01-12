@@ -27,6 +27,7 @@ function Login() {
         navigate("/addInfo");
       } else {
         navigate("/home");
+        window.location.reload();
       }
     });
   }
@@ -38,6 +39,7 @@ function Login() {
     if (user) {
       checkIfAllInfo();
     }
+    if (error) return navigate("/error");
   }, [user, loading]);
 
   return (

@@ -14,7 +14,7 @@ const Answers = (props) => {
       .collection("q2day")
       .doc("daily")
       .onSnapshot((doc) => {
-        setAnswers(doc.data().responses);
+        setAnswers(doc.data().responses.reverse());
       });
     return () => unsubscribe();
   }, [refresh]);
@@ -26,10 +26,9 @@ const Answers = (props) => {
   return (
     <div
       style={{
-        position: "absolute",
         textAlign: "center",
-        top: "0px",
-        left: "45vh",
+        position: "relative",
+        top: "-100px",
       }}
     >
       <div
@@ -37,12 +36,10 @@ const Answers = (props) => {
           display: "block",
         }}
       >
-        <div style={{ height: "20px" }} />
         <div style={{ display: "flex" }}>
           <div style={{ flexGrow: "1" }} />
           <div style={{ display: "block", textAlign: "center" }}>
             <h1 style={{ color: "#FFFFFF" }}>{props.question}</h1>
-            <p style={{ color: "grey" }}>aefaefaefaef</p>
           </div>
           <div style={{ flexGrow: "1" }} />
         </div>
