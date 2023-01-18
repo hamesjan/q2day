@@ -120,7 +120,6 @@ const logout = () => {
 
 const recordUserAnswer = async (uid, answer, name, question, profilePicURL) => {
   try {
-    console.log(profilePicURL);
     const timeStamp = Date.now();
     const newAnswer = {
       answer: answer,
@@ -160,6 +159,38 @@ const recordUserAnswer = async (uid, answer, name, question, profilePicURL) => {
   }
 };
 
+const recordGuestAnswer = async (answer) => {
+  try {
+    const timeStamp = Date.now();
+    const newAnswer = {
+      answer: answer,
+      name: "Guest",
+      profilePicURL: "https://via.placeholder.com/200x200",
+      timestamp: timeStamp,
+      uid: "GuestUID",
+    };
+    await updateDoc(doc(db, "q2day", "daily"), {
+      responses: arrayUnion(newAnswer),
+    });
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
+const addNewQuestion = async (question) => {
+  try {
+    const timeStamp = Date.now();
+    await db.collection("questions").add({
+      question: question,
+      timestamp: timeStamp,
+    });
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
 export {
   auth,
   db,
@@ -170,4 +201,6 @@ export {
   sendPasswordReset,
   logout,
   recordUserAnswer,
+  recordGuestAnswer,
+  addNewQuestion,
 };

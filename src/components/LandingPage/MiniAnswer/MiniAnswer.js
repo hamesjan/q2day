@@ -1,4 +1,4 @@
-const DailyAnswer = (props) => {
+const MiniAnswer = (props) => {
   const date = new Date(props.timestamp);
   const dateString = new Intl.DateTimeFormat("en-US", {
     hour: "2-digit",
@@ -12,7 +12,7 @@ const DailyAnswer = (props) => {
         style={{
           display: "flex",
           alignItems: "center",
-          height: "50px",
+          height: "40px",
         }}
       >
         <img
@@ -20,25 +20,32 @@ const DailyAnswer = (props) => {
           alt="Profile"
           style={{
             borderRadius: "50%",
-            minHeight: "50px",
-            border: "2px solid black",
-            maxHeight: "50px",
-            minWidth: "50px",
-            maxWidth: "50px",
+            minHeight: "25px",
+            border: "1px solid black",
+            maxHeight: "25px",
+            minWidth: "25px",
+            maxWidth: "25px",
           }}
         />
         <div style={{ marginLeft: 15, textAlign: "start" }}>
-          <p style={{ fontWeight: "bold", marginBottom: "5px" }}>
+          <p
+            style={{
+              fontWeight: "bold",
+              marginBottom: "5px",
+              fontSize: "12px",
+            }}
+          >
             {props.name}
           </p>
-          <p style={{ marginTop: "5px" }}>{dateString}</p>
+          <p style={{ marginTop: "5px", fontSize: "12px" }}>{dateString}</p>
         </div>
       </div>
       <p
         style={{
           color: "black",
           textAlign: "start",
-          fontSize: "30px",
+          fontSize: "20px",
+          marginTop: "0px",
         }}
       >
         {props.answer}
@@ -55,4 +62,4 @@ const DailyAnswer = (props) => {
   );
 };
 
-export default DailyAnswer;
+export default MiniAnswer;

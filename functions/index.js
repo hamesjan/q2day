@@ -3,7 +3,7 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 
 exports.updateQuestionOfTheDay = functions.pubsub
-  .schedule("15 21 * * *")
+  .schedule("0 0 * * *")
   .timeZone("America/Los_Angeles")
   .onRun((context) => {
     const firestore = admin.firestore();
@@ -34,7 +34,7 @@ exports.updateQuestionOfTheDay = functions.pubsub
   });
 
 exports.addToHistory = functions.pubsub
-  .schedule("16 21 * * *")
+  .schedule("45 23 * * *")
   .timeZone("America/Los_Angeles")
   .onRun((context) => {
     const firestore = admin.firestore();
