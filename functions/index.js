@@ -34,7 +34,7 @@ exports.updateQuestionOfTheDay = functions.pubsub
   });
 
 exports.addToHistory = functions.pubsub
-  .schedule("45 23 * * *")
+  .schedule("10 22 * * *")
   .timeZone("America/Los_Angeles")
   .onRun((context) => {
     const firestore = admin.firestore();
@@ -48,7 +48,12 @@ exports.addToHistory = functions.pubsub
       .get()
       .then((snapshot) => {
         const answers = snapshot.get("responses");
-        historyRef.add({ answers: answers, timestamp: timestamp });
+        const question = snapshot.get("question");
+        historyRef.add({
+          answers: answers,
+          timestamp: timestamp,
+          question: question,
+        });
       })
       .then(() => {
         firestore.collection("q2day").doc("daily").update({ responses: [] });

@@ -69,129 +69,117 @@ const LandingPage = (props) => {
         </a>
         page visits
       </div>
-      <div
-        style={{
-          display: "block",
-        }}
-      >
-        <div className="landing-page__nav-bar">
-          <h1
-            style={{
-              textWeight: "100",
-              fontSize: "45px",
-              color: "#FFFFFF",
-            }}
-          >
-            q2day
-          </h1>
-          <div style={{ flexGrow: "1" }} />
-          <Link to="/about">
-            <button className="landing-page__about-button">about</button>
-          </Link>
-          <div style={{ width: "20px" }}></div>
-          <Link to="/login">
-            <button className="landing-page__login-button">login</button>
-          </Link>
-        </div>
 
-        <div style={{ display: "flex" }}>
-          <div style={{ flexGrow: "1" }} />
-
-          <div
-            style={{
-              display: "block",
-              paddingRight: "20px",
-              textAlign: "center",
-            }}
-          >
-            {progress == 1 ? (
-              <h1 style={{ color: "#FFFFFF", fontSize: "15px" }}>
-                {props.question}
-              </h1>
-            ) : (
-              <div />
-            )}
-            <div
-              className="landing-page__feed-wrapper"
-              style={
-                isMobile
-                  ? progress == 0
-                    ? { maxHeight: "30vh" }
-                    : { maxHeight: "60vh" }
-                  : { maxHeight: "50vh" }
-              }
-            >
-              {answers.length == 0 ? <h1>Be the first to answer!</h1> : <div />}
-              {refresh && <RefreshButton onClick={handleRefresh} />}
-              {answers.map((answer) => (
-                <MiniAnswer
-                  answer={answer.answer}
-                  question={answer.question}
-                  key={answer.uid}
-                  name={answer.name}
-                  profilePicURL={answer.profilePicURL}
-                  timestamp={answer.timestamp}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {progress == 0 ? (
-        <div className="landing-page__textarea-wrapper">
-          {progress == 0 ? (
-            <h1 style={{ color: "#FFFFFF", fontSize: "15px" }}>
-              {props.question}
-            </h1>
-          ) : (
-            <div />
-          )}
-          <h3 style={{ fontWeight: "400", color: "whitesmoke" }}>
-            your answer
-          </h3>
-          <textarea
-            type="text"
-            value={answer}
-            className="landing-page__textarea"
-            onChange={handleChange}
-          />
-          <div />
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            style={{
-              borderRadius: "25px",
-              padding: 0,
-              width: "50px",
-              height: "50px",
-              border: "none",
-              background: "#1982FC",
-              marginTop: "20px",
-            }}
-          >
-            <BiUpArrowAlt
-              style={{ height: "50px", width: "50px", color: "#FFFFFF" }}
-            />
-          </button>
-        </div>
-      ) : (
+      <div className="landing-page__nav-bar">
         <h1
           style={{
+            textWeight: "100",
+            fontSize: isMobile ? "30px" : "45px",
             color: "#FFFFFF",
-            position: "absolute",
-            bottom: "10px",
-            fontSize: "12px",
-            fontWeight: "200",
-            marginLeft: "auto",
-            marginRight: "auto",
-            left: "0",
-            right: "0",
-            textAlign: "center",
           }}
         >
-          Thank you for answering!
+          q2day
         </h1>
+        <div style={{ flexGrow: "1" }} />
+        <Link to="/about">
+          <button
+            className="landing-page__about-button"
+            style={{
+              fontSize: isMobile ? "20px" : "35px",
+            }}
+          >
+            about
+          </button>
+        </Link>
+        <div style={{ width: "20px" }}></div>
+        {/* <Link to="/login"> */}
+        <button
+          className="landing-page__login-button"
+          onClick={() => {
+            alert("WORK IN PROGRESS LOLOLOLOL\nCOME BACK AGAIN :D");
+          }}
+          style={{
+            opacity: "20",
+            fontSize: isMobile ? "20px" : "35px",
+          }}
+        >
+          login
+        </button>
+        {/* </Link> */}
+      </div>
+      {progress == 0 ? (
+        <div className="landing-page__textarea-wrapper">
+          <h1
+            style={{
+              color: "#FFFFFF",
+              fontSize: isMobile ? "25px" : "35px",
+              fontWeight: "300",
+            }}
+          >
+            {props.question}
+          </h1>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <textarea
+              type="text"
+              value={answer}
+              className="landing-page__textarea"
+              onChange={handleChange}
+              style={{ fontSize: isMobile ? "20px" : "35px" }}
+            />
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              style={{
+                borderRadius: "25px",
+                padding: 0,
+                width: "50px",
+                height: "50px",
+                border: "none",
+                background: "#1982FC",
+                marginLeft: isMobile ? "5px" : "20px",
+              }}
+            >
+              <BiUpArrowAlt
+                style={{ height: "50px", width: "50px", color: "#FFFFFF" }}
+              />
+            </button>
+          </div>
+
+          <div />
+        </div>
+      ) : (
+        <div>
+          <h1
+            style={{
+              color: "#FFFFFF",
+              fontSize: isMobile ? "25px" : "35px",
+              fontWeight: "300",
+              maxWidth: "80%",
+              margin: "auto",
+              marginBottom: "20px",
+            }}
+          >
+            {props.question}
+          </h1>
+          <div
+            className="landing-page__feed-wrapper"
+            style={{ maxHeight: isMobile ? "45vh" : "55vh" }}
+          >
+            {answers.length == 0 ? <h1>Be the first to answer!</h1> : <div />}
+            {refresh && <RefreshButton onClick={handleRefresh} />}
+            {answers.map((answer) => (
+              <MiniAnswer
+                isMobile={isMobile}
+                answer={answer.answer}
+                question={answer.question}
+                key={answer.uid}
+                name={answer.name}
+                profilePicURL={answer.profilePicURL}
+                timestamp={answer.timestamp}
+              />
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );

@@ -20,32 +20,52 @@ const MiniAnswer = (props) => {
           alt="Profile"
           style={{
             borderRadius: "50%",
-            minHeight: "25px",
-            border: "1px solid black",
-            maxHeight: "25px",
-            minWidth: "25px",
-            maxWidth: "25px",
+            minHeight: props.isMobile ? "25px" : "40px",
+            border: "1px solid white",
+            maxHeight: props.isMobile ? "25px" : "40px",
+            minWidth: props.isMobile ? "25px" : "40px",
+            maxWidth: props.isMobile ? "25px" : "40px",
           }}
         />
-        <div style={{ marginLeft: 15, textAlign: "start" }}>
+        <div
+          style={{
+            marginLeft: 15,
+            textAlign: "start",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
           <p
             style={{
               fontWeight: "bold",
-              marginBottom: "5px",
-              fontSize: "12px",
+              fontSize: props.isMobile ? "15px" : "35px",
+              color: "#FFFFFF",
+              fontWeight: "20",
             }}
           >
             {props.name}
           </p>
-          <p style={{ marginTop: "5px", fontSize: "12px" }}>{dateString}</p>
+          <p
+            style={{
+              fontSize: props.isMobile ? "12px" : "20px",
+              color: "#FFFFFF",
+              marginLeft: props.isMobile ? "5px" : "15px",
+              fontWeight: "100",
+            }}
+          >
+            {dateString}
+          </p>
         </div>
       </div>
       <p
         style={{
           color: "black",
           textAlign: "start",
-          fontSize: "20px",
-          marginTop: "0px",
+          fontSize: props.isMobile ? "15px" : "35px",
+          color: "#FFFFFF",
+          fontWeight: "150",
+          marginBottom: "10px",
+          marginTop: "10px",
         }}
       >
         {props.answer}
