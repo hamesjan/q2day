@@ -5,6 +5,7 @@ import Profile from "./components/Profile/Profile";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
 import Reset from "./components/Auth/Reset/Reset";
+import About from "./components/LandingPage/About/About";
 
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -14,6 +15,7 @@ import MyResponses from "./components/MyResponses/MyResponses";
 import AddMissingInfo from "./components/Auth/AddMissingInfo/AddMissingInfo";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import LandingPage from "./components/LandingPage/LandingPage";
+
 
 function App(props) {
   return (
@@ -43,6 +45,7 @@ function App(props) {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/error" element={<ErrorPage />} />
         <Route exact path="/addInfo" element={<AddMissingInfo />} />
+        <Route exact path="/about" element={<About />} />
         <Route
           exact
           path="/"
@@ -50,7 +53,7 @@ function App(props) {
         />
         <Route
           exact
-          path="home"
+          path="/home"
           element={
             <Home
               question={props.question}
