@@ -52,7 +52,7 @@ const LandingPage = (props) => {
 
   const handleSubmit = () => {
     setProgress(1);
-
+    // setAnswer("");
     recordGuestAnswer(answer);
     // addNewQuestion(answer);
   };
@@ -165,7 +165,13 @@ const LandingPage = (props) => {
             className="landing-page__feed-wrapper"
             style={{ maxHeight: isMobile ? "45vh" : "55vh" }}
           >
-            {answers.length == 0 ? <h1>Be the first to answer!</h1> : <div />}
+            {answers.length == 0 ? (
+              <h1 style={{ color: "#FFFFFF", fontWeight: "100" }}>
+                Be the first to answer!
+              </h1>
+            ) : (
+              <div />
+            )}
             {refresh && <RefreshButton onClick={handleRefresh} />}
             {answers.map((answer) => (
               <MiniAnswer

@@ -34,7 +34,7 @@ exports.updateQuestionOfTheDay = functions.pubsub
   });
 
 exports.addToHistory = functions.pubsub
-  .schedule("10 22 * * *")
+  .schedule("50 23 * * *")
   .timeZone("America/Los_Angeles")
   .onRun((context) => {
     const firestore = admin.firestore();
