@@ -16,6 +16,7 @@ import ErrorPage from "./components/ErrorPage/ErrorPage";
 import LandingPage from "./components/LandingPage/LandingPage";
 
 function App(props) {
+  // hi
   return (
     <Layout>
       <Routes>
@@ -43,6 +44,7 @@ function App(props) {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/error" element={<ErrorPage />} />
         <Route exact path="/addInfo" element={<AddMissingInfo />} />
+        
         <Route
           exact
           path="/"

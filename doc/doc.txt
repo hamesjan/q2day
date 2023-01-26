@@ -1,0 +1,45 @@
+PUSH BRANCH
+
+Everytime you go on the project
+
+$ git branch 
+
+check which branch you are on
+
+if not on branch "master", 
+
+$ git checkout master
+
+once on master, 
+
+$ git pull
+
+after you receive new files
+
+$ git branch -m NEW_BRANCH_NAME
+
+work on that branch
+
+TO MAKE A PULL REQUEST
+
+cd to outermost q2day directory 
+
+add all current worked on files by doing git status to check which files have been created, updated deleted
+
+$ git add .
+
+$ git status
+
+$ git commit -m "commit message"
+
+$ git push
+
+open github go to q2day
+
+compare and pull REQUEST
+
+write good description
+
+wait for review
+
+
