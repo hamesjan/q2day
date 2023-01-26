@@ -2,24 +2,34 @@ import "./LandingPage.css";
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
 import RefreshButton from "../Home/Answers/RefreshButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MiniAnswer from "./MiniAnswer/MiniAnswer";
 import { BiUpArrowAlt } from "react-icons/bi";
-import { addNewQuestion, recordGuestAnswer } from "../../Firebase";
+import { addNewQuestion, auth, recordGuestAnswer } from "../../Firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const LandingPage = (props) => {
   const [isMobile, setIsMobile] = useState(false);
   const [answer, setAnswer] = useState("");
-
   const [progress, setProgress] = useState(0);
+  const [user, loading, error] = useAuthState(auth);
+  const [answers, setAnswers] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+
+  const navigate = useNavigate();
+
+  // use useffect here if no data
+
+  useEffect(() => {
+    if (loading) return;
+    if (user) return navigate("/home");
+    if (error) return navigate("/error");
+  }, [user, loading]);
 
   useEffect(() => {
     const isMobile = window.innerWidth <= 600;
     setIsMobile(isMobile);
   }, []);
-
-  const [answers, setAnswers] = useState([]);
-  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const unsubscribe = firebase
@@ -49,75 +59,39 @@ const LandingPage = (props) => {
 
   return (
     <div className="landing-page__outer-wrapper">
+      <div className="landing-page__visit-counter">
+        <a href="http://stuff.mit.edu/doc/counter-howto.html">
+          <img
+            src="http://stuff.mit.edu/cgi/counter/q2daye7dcf"
+            alt="several"
+            style={{ marginRight: "5px" }}
+          />
+        </a>
+        page visits
+      </div>
       <div
         style={{
           display: "block",
         }}
       >
-        <div
-          style={
-            isMobile
-              ? {
-                  display: "block",
-                }
-              : {
-                  display: "flex",
-                  textAlign: "center",
-                  alignItems: "center",
-                }
-          }
-        >
+        <div className="landing-page__nav-bar">
           <h1
             style={{
-              textWeight: "300",
-              fontSize: "50px",
+              textWeight: "100",
+              fontSize: "45px",
               color: "#FFFFFF",
-              marginBottom: "10px",
-              marginLeft: "30px",
             }}
           >
             q2day
           </h1>
-
           <div style={{ flexGrow: "1" }} />
-          <div
-            style={
-              isMobile
-                ? {
-                    position: "absolute",
-                    right: 0,
-                    top: 50,
-                    marginRight: "50px",
-                    textAlign: "center",
-                  }
-                : { display: "block", marginRight: "50px", textAlign: "center" }
-            }
-          >
-            {/* <Link to="/login">
-              <h1
-                style={{
-                  textWeight: "200",
-                  fontSize: "30px",
-                  color: "#1982FC",
-                  marginBottom: "0px",
-                }}
-              >
-                Log in
-              </h1>
-            </Link>
-            <Link to="/register">
-              <h1
-                style={{
-                  marginTop: "3px",
-                  textWeight: "200",
-                  fontSize: "12px",
-                  color: "grey",
-                }}
-              >
-                new here?
-              </h1>
-            </Link> */}
-          </div>
+          <Link to="/about">
+            <button className="landing-page__about-button">about</button>
+          </Link>
+          <div style={{ width: "20px" }}></div>
+          <Link to="/login">
+            <button className="landing-page__login-button">login</button>
+          </Link>
         </div>
 
         <div style={{ display: "flex" }}>
@@ -163,6 +137,7 @@ const LandingPage = (props) => {
           </div>
         </div>
       </div>
+
       {progress == 0 ? (
         <div className="landing-page__textarea-wrapper">
           {progress == 0 ? (

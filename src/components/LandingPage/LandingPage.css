@@ -1,6 +1,39 @@
 .landing-page__outer-wrapper{
         align-items: center;
         justify-content: center;
+        padding: 32px;
+}
+
+.landing-page__nav-bar{
+  display: flex;
+  vertical-align: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.landing-page__nav-buttons-wrapper{
+  background-color: #1982FC;
+  border-radius: 25px;
+  height: 20px;
+  width: 300px;
+}
+
+.landing-page__about-button{
+  border: none;
+  background-color: transparent;
+  font-size: 35px;
+  color: #FFFFFF;
+  cursor: pointer;
+  padding: 10px 32px 10px 32px;
+}
+.landing-page__login-button{
+  background-color: #1982FC;
+  border: none;
+  font-size: 35px;
+  color: #FFFFFF;
+  border-radius: 47px;
+  cursor: pointer;
+  padding: 10px 32px 10px 32px;
 }
 
 .landing-page__feed-wrapper{
@@ -41,4 +74,12 @@
   left: 0;
   right: 0;
   text-align: center;
+}
+
+.landing-page__visit-counter{
+  color: #FFFFFF ;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  padding: 5px;
 }

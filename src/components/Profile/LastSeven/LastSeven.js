@@ -69,7 +69,9 @@ const LastSeven = (props) => {
         <h1>Last 7 Days</h1>
         <div style={{ flexGrow: "1" }} />
         <Link to="/myresponses">
-          <button>See all Answers</button>
+          <button className="last-seven__See-All_Answers_btn">
+            See all Answers
+          </button>
         </Link>
       </div>
       {listItems}

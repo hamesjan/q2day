@@ -10,7 +10,7 @@
 
 }
 
-button{
+.last-seven__See-All_Answers_btn{
     height: 30px;
     width: fit-content;
     font-size: large;
@@ -21,7 +21,7 @@ button{
     border-radius: 5px;
 }
 
-button:hover{
+.last-seven__See-All_Answers_btn:hover{
     transform: scale(1.1) perspective(1px);
     border: 2px solid #1982FC;
     color: #1982FC;
