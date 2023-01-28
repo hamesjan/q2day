@@ -49,6 +49,7 @@ const auth = firebase.auth();
 const storage = getStorage(firebaseApp);
 
 const googleProvider = new GoogleAuthProvider();
+googleProvider.addScope("email");
 const signInWithGoogle = async () => {
   try {
     const dateJoined = Date.now();
